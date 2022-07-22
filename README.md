@@ -46,3 +46,15 @@ Start the server
   npm run start or yarn start
 ```
 
+
+## Tech Stack
+
+**Client:** 
+- React, 
+- Styled-Components, 
+- Apollo-Client,
+- React-Router-Dom V6,
+- Material-UI v5
+- Typescript
+
+

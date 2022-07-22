@@ -36,9 +36,6 @@ export const MediaCard = (props: MediaCardProps) => {
           >
             {title}
           </Typography>
-          <Typography gutterBottom variant="h5" component="div">
-            {randomNumber}
-          </Typography>
         </Box>
         <Typography variant="body2" color="text.secondary">
           {description}

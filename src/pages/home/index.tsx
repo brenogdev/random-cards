@@ -1,17 +1,12 @@
 import React, { useState } from "react";
 import { Box, Button, CircularProgress, Typography } from "@mui/material";
 import { useParams } from "react-router-dom";
-
 import { useQuery } from "@apollo/client";
+
 import { MediaCard } from "../../components/MediaCard";
 import { GET_POKEMONS } from "../../graphql/queries/getPokemons";
+import { PokemonProps } from "../../@types/pokemons.types";
 import * as Styled from "./styles";
-
-type PokemonProps = {
-  image: string;
-  name: string;
-  url: string;
-};
 
 const Home: React.FunctionComponent = () => {
   const { name } = useParams();
@@ -44,7 +39,7 @@ const Home: React.FunctionComponent = () => {
   };
 
   function shuffle(array: PokemonProps[]) {
-    var ctr = array.length,
+    let ctr = array.length,
       temp,
       index;
     while (ctr > 0) {
@@ -64,19 +59,26 @@ const Home: React.FunctionComponent = () => {
 
   return (
     <Styled.Container>
-      <Typography variant="body1" fontSize={40} textAlign="center">
-        Seja bem vindo(a)
-      </Typography>
-      <Typography
-        variant="subtitle2"
-        fontSize={40}
-        textAlign="center"
-        fontWeight="bold"
-      >
-        {name}
-      </Typography>
+      <Box>
+        <Typography variant="body1" fontSize={40} textAlign="center">
+          Seja bem vindo(a)
+        </Typography>
+        <Typography
+          variant="subtitle2"
+          fontSize={40}
+          textAlign="center"
+          fontWeight="bold"
+        >
+          {name}
+        </Typography>
+      </Box>
       <Styled.Actions>
-        <Button variant="outlined" color="primary" onClick={handleShuffle}>
+        <Button
+          variant="outlined"
+          color="primary"
+          onClick={handleShuffle}
+          sx={{ textTransform: "capitalize" }}
+        >
           Embaralhar
         </Button>
         <Button
@@ -84,6 +86,7 @@ const Home: React.FunctionComponent = () => {
           color="success"
           onClick={() => getMoreCard()}
           disabled={limit === 8}
+          sx={{ textTransform: "capitalize" }}
         >
           Nova carta
         </Button>
