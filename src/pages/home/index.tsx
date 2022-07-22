@@ -6,7 +6,7 @@ import Flippy, { FrontSide, BackSide } from "react-flippy";
 
 import { MediaCard } from "../../components/MediaCard";
 import { GET_POKEMONS } from "../../graphql/queries/getPokemons";
-import { PokemonProps } from "../../@types/pokemons.types";
+import { PokemonNewProps, PokemonProps } from "../../@types/pokemons.types";
 import * as Styled from "./styles";
 
 const Home: React.FunctionComponent = () => {
@@ -62,7 +62,7 @@ const Home: React.FunctionComponent = () => {
     return {
       image: item.image,
       name: item.name,
-      points: Math.floor(Math.random() * 10)
+      points: Math.floor(Math.random() * 11)
     };
   });
 
@@ -105,7 +105,7 @@ const Home: React.FunctionComponent = () => {
           <CircularProgress color="success" />
         ) : (
           <>
-            {newResult.map((pokemon: any) => (
+            {newResult.map((pokemon: PokemonNewProps) => (
               <Flippy key={pokemon.name} isFlipped={flippy}>
                 <FrontSide>
                   <MediaCard
