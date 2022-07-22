@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Box, Button, CircularProgress, Typography } from "@mui/material";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@apollo/client";
+import Flippy, { FrontSide, BackSide } from "react-flippy";
 
 import { MediaCard } from "../../components/MediaCard";
 import { GET_POKEMONS } from "../../graphql/queries/getPokemons";
@@ -12,6 +13,7 @@ const Home: React.FunctionComponent = () => {
   const { name } = useParams();
   const [limit, setLimit] = useState(5);
   const [result, setResult] = useState<PokemonProps[]>([]);
+  const [flippy, setFlippy] = useState(false);
 
   const points = Math.floor(Math.random() * 10);
 
@@ -38,7 +40,7 @@ const Home: React.FunctionComponent = () => {
     setLimit(currentLength + fetchMoreResult.data.pokemons.results.length);
   };
 
-  function shuffle(array: PokemonProps[]) {
+  function getItemsToShuffle(array: PokemonProps[]) {
     let ctr = array.length,
       temp,
       index;
@@ -53,15 +55,24 @@ const Home: React.FunctionComponent = () => {
   }
 
   function handleShuffle() {
-    const changes = shuffle([...result]);
+    const changes = getItemsToShuffle([...result]);
     setResult(changes);
+    setFlippy(true);
   }
+
+  const newResult = result.map((item) => {
+    return {
+      image: item.image,
+      name: item.name,
+      points: points,
+    };
+  });
 
   return (
     <Styled.Container>
-      <Box>
+      <Box display="flex" justifyContent="flex-end">
         <Typography variant="body1" fontSize={40} textAlign="center">
-          Seja bem vindo(a)
+          Seja bem vindo(a):
         </Typography>
         <Typography
           variant="subtitle2"
@@ -96,17 +107,19 @@ const Home: React.FunctionComponent = () => {
           <CircularProgress color="success" />
         ) : (
           <>
-            {result &&
-              result.map((pokemon: PokemonProps) => (
-                <Box key={pokemon.name}>
+            {newResult.map((pokemon: any) => (
+              <Flippy key={pokemon.name} isFlipped={flippy}>
+                <FrontSide>
                   <MediaCard
-                    randomNumber={points}
+                    randomNumber={pokemon.points}
                     image={pokemon.image}
                     title={pokemon.name}
                     alt={pokemon.name}
                   />
-                </Box>
-              ))}
+                </FrontSide>
+                <BackSide style={{ backgroundColor: "#175852" }} />
+              </Flippy>
+            ))}
           </>
         )}
       </Styled.Content>

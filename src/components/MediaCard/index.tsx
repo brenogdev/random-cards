@@ -10,6 +10,7 @@ type MediaCardProps = {
 
 export const MediaCard = (props: MediaCardProps) => {
   const { image, alt, title, description, randomNumber } = props;
+  
 
   return (
     <Card sx={{ maxWidth: 300, maxHeight: 300 }}>
