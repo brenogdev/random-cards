@@ -62,7 +62,7 @@ const Home: React.FunctionComponent = () => {
     return {
       image: item.image,
       name: item.name,
-      points: Math.floor(Math.random() * 11)
+      points: Math.floor(Math.random() * 11),
     };
   });
 
@@ -106,7 +106,11 @@ const Home: React.FunctionComponent = () => {
         ) : (
           <>
             {newResult.map((pokemon: PokemonNewProps) => (
-              <Flippy key={pokemon.name} isFlipped={flippy}>
+              <Flippy
+                key={pokemon.name}
+                isFlipped={flippy}
+                style={{ cursor: "pointer" }}
+              >
                 <FrontSide>
                   <MediaCard
                     randomNumber={pokemon.points}
