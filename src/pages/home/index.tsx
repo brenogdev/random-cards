@@ -15,8 +15,6 @@ const Home: React.FunctionComponent = () => {
   const [result, setResult] = useState<PokemonProps[]>([]);
   const [flippy, setFlippy] = useState(false);
 
-  const points = Math.floor(Math.random() * 10);
-
   const gqlVariables = {
     limit,
     offset: 0,
@@ -55,16 +53,16 @@ const Home: React.FunctionComponent = () => {
   }
 
   function handleShuffle() {
+    setFlippy(true);
     const changes = getItemsToShuffle([...result]);
     setResult(changes);
-    setFlippy(true);
   }
 
   const newResult = result.map((item) => {
     return {
       image: item.image,
       name: item.name,
-      points: points,
+      points: Math.floor(Math.random() * 10)
     };
   });
 
